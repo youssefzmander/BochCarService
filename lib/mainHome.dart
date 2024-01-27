@@ -48,7 +48,9 @@ print('UIMATTTT: ${storedData?.Plate}');
           Map<String, dynamic> data = doc.data();
 
           // Convert Timestamp to DateTime
+          //String dateFact = (data['Datefact'] as Timestamp).toDate().toIso8601String();
           String dateFact = (data['Datefact'] as Timestamp).toDate().toIso8601String();
+
           print(dateFact);
           print("dateFact");
           // Replace Timestamp with DateTime
@@ -58,12 +60,11 @@ print('UIMATTTT: ${storedData?.Plate}');
           print("data");
           print(data);
         }
-
+        jsonDataList.sort((b, a) => a['Datefact'].compareTo(b['Datefact']));
         // Save JSON data to local storage
         SharedPreferences prefs = await SharedPreferences.getInstance();
         String jsonString = jsonEncode(jsonDataList);
         await prefs.setString('factureData', jsonString);
-
         print('Data saved to local storage.');
       }
       print('5rjt');
