@@ -42,10 +42,13 @@ print('UIMATTTT: ${storedData?.Plate}');
         print('Documents found:');
         // Convert Firestore document data to JSON
          List<Map<String, dynamic>> jsonDataList = [];
+         List<Map<String, dynamic>> jsonUniqueDataList = [];
+        Map<String, dynamic> uniqueDataMap = {}; // Map to store unique data
 
        for (QueryDocumentSnapshot<Map<String, dynamic>> doc
             in querySnapshot.docs) {
           Map<String, dynamic> data = doc.data();
+          String libelleArticle = data['LIBELLEARTICLE'];
 
           // Convert Timestamp to DateTime
           //String dateFact = (data['Datefact'] as Timestamp).toDate().toIso8601String();

@@ -49,6 +49,7 @@ Future<void> addUserDataToFirestore() async {
     'Plate': Plate,
     'Plate3': _Plate3,
     'Plate4': _Plate4,
+    'MatType': _selectedChoice,
       // Add other user-related fields as needed
     };
 

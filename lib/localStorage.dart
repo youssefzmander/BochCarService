@@ -80,8 +80,6 @@ Future<List<Map<String, dynamic>>> loadFromLocalStorage() async {
               ),
             ],
           ),
-                  
-            
             // Add more fields as needed
           ),
         ),
@@ -108,12 +106,13 @@ class UserData {
   final String Plate;
   final String Plate3;
   final String Plate4;
-final String UserName;
-final String Email;
-final String Tel;
+  final String UserName;
+  final String Email;
+  final String Tel;
+  final String MatType;
 
   // ignore: non_constant_identifier_names
-  UserData({required this.Plate3, required this.Plate4,    required this.UserName, required this.Email, required this.Plate, required this.Tel});
+  UserData({required this.Plate3,required this.MatType, required this.Plate4,    required this.UserName, required this.Email, required this.Plate, required this.Tel});
   
 
   // You can add more properties as needed
@@ -128,6 +127,7 @@ return UserData(
       Plate3: map['Plate3'] ?? '',
       Plate4: map['Plate4'] ?? '',
       Tel: map['Tel'] ?? '',
+      MatType: map['MatType'] ?? '',
       // Add more fields as needed
     );  }
 }

@@ -11,7 +11,6 @@ class Profile extends StatefulWidget {
 }
 class _ProfileState extends State<Profile> {
   final List<String> _choices = ['TU', 'RS', 'FCR', 'DOUANE', 'ETAT', 'AUTRES'];
-  late String? _selectedChoice= "DOUANE";
   LStorage lStorage = LStorage();
   UserData? storedData;
   final _auth = FirebaseAuth.instance;
@@ -37,6 +36,7 @@ class _ProfileState extends State<Profile> {
     super.initState();
     loadData();
   }
+  late String? _selectedChoice= storedData?.MatType.toString();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
