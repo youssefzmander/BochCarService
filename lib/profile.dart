@@ -1,6 +1,7 @@
 
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/localStorage.dart';
@@ -11,6 +12,8 @@ class Profile extends StatefulWidget {
 }
 class _ProfileState extends State<Profile> {
   final List<String> _choices = ['TU', 'RS', 'FCR', 'DOUANE', 'ETAT', 'AUTRES'];
+  late String? _selectedChoice= 'TU';
+  //String? _selectedChoice=storedData?.MatType.toString();
   LStorage lStorage = LStorage();
   UserData? storedData;
   final _auth = FirebaseAuth.instance;
@@ -19,6 +22,19 @@ class _ProfileState extends State<Profile> {
   final _confirmPasswordController = TextEditingController();
   String _errorMessage = '';
 
+Future<void> updateUserData(String userId, Map<String, dynamic> newData) async {
+    try {
+      // Reference to the document of the user in Firestore
+      DocumentReference userDocRef = FirebaseFirestore.instance.collection('users').doc(userId);
+
+      // Update the user data
+      await userDocRef.update(newData);
+
+      print('User data updated successfully.');
+    } catch (e) {
+      print('Error updating user data: $e');
+    }
+  }
   Map<String, dynamic>? mapData;
   Future<void> loadData() async {
      mapData = await lStorage.getStoredData('userData');
@@ -36,7 +52,6 @@ class _ProfileState extends State<Profile> {
     super.initState();
     loadData();
   }
-  late String? _selectedChoice= storedData?.MatType.toString();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

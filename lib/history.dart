@@ -2,48 +2,44 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/details.dart';
+import 'package:flutter_application_1/localStorage.dart';
 
-class History extends StatelessWidget{
+class History extends StatefulWidget {
+  @override
+  _HistoryState createState() => _HistoryState();
+}
+class _HistoryState extends State<History>{
+  List<FactureData> factureDataList = [];
+  FactureData? storedData;
+  final LStorage? lStorage=LStorage();
+  void initState() {
+    super.initState();
+    loadData();
+  }
+  void loadData() async {
+  List<Map<String, dynamic>>? data = await lStorage?.loadUniqueFromLocalStorage();
+  // Handle the loaded data here
+  print(data);
+}
 @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        
-        body: ListView(
-          children: <Widget>[
-            ListTile(
-              title: Text('Devices list :', style: TextStyle(fontSize: 20)),
-            ),
-            Card(
-              child: ListTile(
-                leading: Icon(Icons.device_unknown, size: 50),
-                title: Column(
-                      children:const [
-                        Text("Type",style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold)),
-                        SizedBox( width: 30),
-                        Text("KM Depart" ,   style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold, color: Colors.blue)),
-                        Text("KM ", style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
-                        Text("KM arrivee", style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold, color: Colors.blue)),
-                        Text("KM ", style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
-                      ],
-                    ),//Text('modem ZTE orange'),
-                shape: CircleBorder(eccentricity: 0.5),
-                
-              onTap: () {
-                Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Detailss()),
-            );
-              },
-              ),
-              
-            ),
-            
-          ],
-        ),
-        
-      ),
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: lStorage?.loadUniqueFromLocalStorage(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (snapshot.hasData) {
+          List<Map<String, dynamic>> data = snapshot.data!;
+          List<Widget> cards = lStorage!.buildCards(data);
+          return ListView(
+            children: cards,
+          );
+        } else {
+          return Center(child: Text('No data available'));
+        }
+      },
     );
   }
 }

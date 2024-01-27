@@ -47,6 +47,29 @@ Future<List<Map<String, dynamic>>> loadFromLocalStorage() async {
     }
   }
 
+
+  Future<List<Map<String, dynamic>>> loadUniqueFromLocalStorage() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? jsonString = prefs.getString('factureUniqueData');
+
+      if (jsonString != null) {
+        List<dynamic> jsonDataList = jsonDecode(jsonString);
+        List<Map<String, dynamic>> factureDataList = jsonDataList
+            .map((json) => json as Map<String, dynamic>)
+            .toList();
+        
+        return factureDataList;
+      } else {
+        print('No data found in local storage.');
+        return [];
+      }
+    } catch (e) {
+      print('Error loading data from local storage: $e');
+      return [];
+    }
+  }
+
   List<Widget> buildCards(List<Map<String, dynamic>> data) {
     List<Widget> cards = [];
     for (var item in data) {

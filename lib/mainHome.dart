@@ -42,7 +42,7 @@ print('UIMATTTT: ${storedData?.Plate}');
         print('Documents found:');
         // Convert Firestore document data to JSON
          List<Map<String, dynamic>> jsonDataList = [];
-         List<Map<String, dynamic>> jsonUniqueDataList = [];
+         List<Map<String, dynamic>>? jsonUniqueDataList = [];
         Map<String, dynamic> uniqueDataMap = {}; // Map to store unique data
 
        for (QueryDocumentSnapshot<Map<String, dynamic>> doc
@@ -62,13 +62,27 @@ print('UIMATTTT: ${storedData?.Plate}');
           jsonDataList.add(data);
           print("data");
           print(data);
+          if (uniqueDataMap.containsKey(libelleArticle)) {
+            continue;
+          }else{
+            jsonUniqueDataList.add(data);
+          uniqueDataMap[libelleArticle] = data;
+          }
+          
         }
+        jsonUniqueDataList = uniqueDataMap.values.cast<Map<String, dynamic>>().toList();
+        jsonUniqueDataList.sort((b, a) => a['Datefact'].compareTo(b['Datefact']));
+
         jsonDataList.sort((b, a) => a['Datefact'].compareTo(b['Datefact']));
         // Save JSON data to local storage
         SharedPreferences prefs = await SharedPreferences.getInstance();
         String jsonString = jsonEncode(jsonDataList);
+        String jsonUniqueString = jsonEncode(jsonUniqueDataList);
         await prefs.setString('factureData', jsonString);
+        await prefs.setString('factureUniqueData', jsonUniqueString);
         print('Data saved to local storage.');
+        print('Data 3adeya$jsonString');
+        print('Data Unique$jsonUniqueString');
       }
       print('5rjt');
     // Check if the document exists
