@@ -33,8 +33,13 @@ password: password,
 
 Future<void> signOut() async {
 await _firebaseAuth.signOut();
-SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.clear();
+try {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    print('Local storage cleared successfully.');
+  } catch (e) {
+    print('Error clearing local storage: $e');
+  }
 }
 
 }

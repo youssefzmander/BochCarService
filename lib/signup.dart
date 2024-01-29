@@ -54,7 +54,9 @@ Future<void> addUserDataToFirestore() async {
     };
 
     // Set the data in Firestore
-    await userDocRef.set(userData);
+    await userDocRef.set(userData).then((value) => {
+      userData = {}
+    });
 
     print('User data added to Firestore for UID: ${user.uid}');
   } else {
@@ -78,7 +80,12 @@ password: _controllerPassword.text,
   print(errorMessage);
 });
   }}
-  
+  @override
+  void initState() {
+    super.initState();
+    Auth().signOut();
+    
+  }
   @override
  Widget build(BuildContext context) {
     return MaterialApp(
@@ -265,17 +272,19 @@ password: _controllerPassword.text,
                   print(Plate);
                   
                   if (PassCorrect==true){
-                    createUserwithEmailAndPassword();
-                    print("TLA3333");
-                    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+                    createUserwithEmailAndPassword().then((value) => {addUserDataToFirestore(),
+                    print("TLA3333")});
+                    Auth().signOut();
+                    /*FirebaseAuth.instance.authStateChanges().listen((User? user) {
   if (user != null) {
     // User is signed in
-    addUserDataToFirestore();
+    print("addUserDataToFirestore");
   } else {
     // User is signed out
     print('User is signed out');
   }
-});
+}
+);*/
                     
                     PassCorrect=false;
                   }else{

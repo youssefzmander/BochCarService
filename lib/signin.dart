@@ -19,7 +19,6 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn>{
 
 
-
  final TextEditingController _controllerEmail =TextEditingController();
 
   final TextEditingController _controllerPassword=TextEditingController();
@@ -31,10 +30,16 @@ Future<void> addToLocalStorage(String key, String value) async {
   print('Data added to local storage');
 }
 LStorage lStorage = LStorage();
+@override
+  void initState() {
+    super.initState();
+    Auth().signOut();
 
+  }
 Future<Map<String, dynamic>> getUserData() async {
   User? user = FirebaseAuth.instance.currentUser;
   print('Userrrrrrrrrr: $user');
+  print('UserrrrrrrrrrUID: ${user?.uid}');
   if (user?.uid != null) {
     
     // Reference to the user's document in the 'users' collection
@@ -45,6 +50,8 @@ Future<Map<String, dynamic>> getUserData() async {
     if (snapshot.exists) {
       // Access user data
       Map<String, dynamic> userData = snapshot.data()!;
+      print("userDataaaaa");
+      print(userData);
       return userData;
     } else {
       print('User document does not exist');
@@ -70,7 +77,7 @@ getUserData().then((userData) async{
     print('User Data: $userData');
     String jsonMap = jsonEncode(userData);
     lStorage.addToLocalStorage('userData', jsonMap).then((value) => {
-      print('S/iii7'),
+      print('S7iii7'),
        
 });
   }).then((value) => Navigator.push(
@@ -141,7 +148,9 @@ getUserData().then((userData) async{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: ()  {
+                      
+                    },
                     child: Text(
                       'Forget your Password',
                       style: TextStyle(

@@ -1,7 +1,6 @@
 import 'package:english_words/english_words.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/WidgetTree.dart';
 import 'package:flutter_application_1/firebase_options.dart';
 import 'package:flutter_application_1/signin.dart';
 import 'package:flutter_application_1/signup.dart';
@@ -114,7 +113,7 @@ class MyHomePage extends StatelessWidget {
                 onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => WidgetTree()),
+              MaterialPageRoute(builder: (context) => SignIn()),
             );
           },
                 child: Text('CONTINUE'),
