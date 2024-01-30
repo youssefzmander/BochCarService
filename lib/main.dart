@@ -2,6 +2,7 @@ import 'package:english_words/english_words.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/firebase_options.dart';
+import 'package:flutter_application_1/notification.dart';
 import 'package:flutter_application_1/signin.dart';
 import 'package:flutter_application_1/signup.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +12,11 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 );
+await PushNotificationService().initialize();
   
 }
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
