@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/contact.dart';
 import 'package:flutter_application_1/history.dart';
 import 'package:flutter_application_1/home.dart';
 import 'package:flutter_application_1/informations.dart';
@@ -139,8 +140,18 @@ print('UIMATTTT: ${storedData?.Plate}');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar( title:Text(_pagesTitle[_currentIndex]), backgroundColor: Colors.blue,
+      appBar: AppBar( title:Text(_pagesTitle[_currentIndex]),centerTitle: true, backgroundColor: Colors.blue,
         actions: <Widget>[
+          
+          IconButton(
+            icon: Icon(Icons.info),
+            onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => contact()),
+            );
+            },
+          ),
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
@@ -168,7 +179,7 @@ print('UIMATTTT: ${storedData?.Plate}');
             label: 'History',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.info),
+            icon: Icon(Icons.lightbulb),
             label: 'Informations',
           ),
           BottomNavigationBarItem(

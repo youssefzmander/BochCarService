@@ -149,7 +149,7 @@ getUserData().then((userData) async{
                 children: [
                   TextButton(
                     onPressed: ()  {
-                      
+                      Auth().resetPassword(_controllerEmail as String);
                     },
                     child: Text(
                       'Forget your Password',
