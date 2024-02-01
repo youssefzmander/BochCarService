@@ -1,12 +1,15 @@
+import 'dart:async';
+
 import 'package:english_words/english_words.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/animated_splash_screen.dart';
 import 'package:flutter_application_1/firebase_options.dart';
 import 'package:flutter_application_1/notification.dart';
 import 'package:flutter_application_1/signin.dart';
 import 'package:flutter_application_1/signup.dart';
 import 'package:provider/provider.dart';
-
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 Future<void> main() async {
   runApp(MyApp());
   await Firebase.initializeApp(
@@ -32,6 +35,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         ),
         home: MyHomePage(),
+        debugShowCheckedModeBanner: false,
         routes: {
         '/SignUp': (context) => SignUp(), // SignUp route
         '/SignIn': (context) => SignIn(), // SignUp route
@@ -45,90 +49,33 @@ class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
 }
 
-class MyHomePage extends StatelessWidget {
-  @override
- Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Register Account',
-      home: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  
-                  Text(
-                    'Register Account',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                  SizedBox(width: 40),
-                ],
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Complete your details or continue with social media.',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-              SizedBox(height: 20),
-              
-              SizedBox(height: 20),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Full Name',
-                  icon: Icon(Icons.person),
-                ),
-              ),
-              SizedBox(height: 20),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Your Email',
-                  icon: Icon(Icons.email),
-                ),
-              ),
-              SizedBox(height: 20),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Choose your UserName',
-                  icon: Icon(Icons.person),
-                ),
-              ),
-              SizedBox(height: 20),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  icon: Icon(Icons.lock),
-                ),
-              ),
-              SizedBox(height: 20),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Confirm Password',
-                  icon: Icon(Icons.lock),
-                ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SignIn()),
-            );
-          },
-                child: Text('CONTINUE'),
-              ),
-            ],
+
+ class MyHomePage extends StatefulWidget { 
+  @override 
+  _MyHomePageState createState() => _MyHomePageState(); 
+} 
+class _MyHomePageState extends State<MyHomePage> { 
+  @override 
+  void initState() { 
+    super.initState(); 
+    Timer(Duration(seconds: 3), 
+   ()=>Navigator.pushReplacement(context, 
+     MaterialPageRoute(builder: 
+    (context) =>   SignIn()    ) 
+ ) 
+         ); 
+  } 
+  @override 
+  Widget build(BuildContext context) { 
+    return Container( 
+      color: Colors.white, 
+      //child:FlutterLogo( size:MediaQuery.of(context).size.height) 
+    child: Image.asset(
+            'assets/BOSCH.png', // Path to your image asset
+            width: double.infinity, // Set width to fill the entire width
+            height: 200, // Adjust height as needed
+            //fit: BoxFit.cover, // Adjust how the image is displayed
           ),
-        ),
-      ),
-    );
-  }
-}
-
-
-
+    ); 
+  } 
+} 
