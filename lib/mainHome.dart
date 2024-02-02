@@ -48,17 +48,20 @@ print('UIMATTTT: ${storedData?.Plate}');
 
        for (QueryDocumentSnapshot<Map<String, dynamic>> doc
             in querySnapshot.docs) {
+              print('Documents fffffff');
           Map<String, dynamic> data = doc.data();
           String libelleArticle = data['LIBELLEARTICLE'];
 
           // Convert Timestamp to DateTime
           //String dateFact = (data['Datefact'] as Timestamp).toDate().toIso8601String();
-          String dateFact = (data['Datefact'] as Timestamp).toDate().toIso8601String();
-
+          //String dateFact = (data['Datefact'] as Timestamp).toDate().toIso8601String();
+          String dateFact = data['DATEFACT'].substring(0, 10) ;
+          //DateTime dateFact = DateTime.parse(dateFacture);
+          
           print(dateFact);
-          print("dateFact");
+          print("DATEFACT");
           // Replace Timestamp with DateTime
-          data['Datefact'] = dateFact;
+          data['DATEFACT'] = dateFact;
 
           jsonDataList.add(data);
           print("data");
@@ -72,9 +75,11 @@ print('UIMATTTT: ${storedData?.Plate}');
           
         }
         jsonUniqueDataList = uniqueDataMap.values.cast<Map<String, dynamic>>().toList();
-        jsonUniqueDataList.sort((b, a) => a['Datefact'].compareTo(b['Datefact']));
+        jsonUniqueDataList.sort((b, a) => a['DATEFACT'].compareTo(b['DATEFACT']));
 
-        jsonDataList.sort((b, a) => a['Datefact'].compareTo(b['Datefact']));
+        jsonDataList.sort((b, a) => a['DATEFACT'].compareTo(b['DATEFACT']));
+        print('sorttttttttt');
+        print(jsonUniqueDataList);
         // Save JSON data to local storage
         SharedPreferences prefs = await SharedPreferences.getInstance();
         String jsonString = jsonEncode(jsonDataList);

@@ -77,7 +77,7 @@ Future<List<Map<String, dynamic>>> loadFromLocalStorage() async {
         Card(
           child: ListTile(
             leading: Icon(Icons.article_rounded, size: 50),
-                  title: Text('${item['LIBELLEARTICLE']} ${item['Datefact']}'),
+                  title: Text('${item['LIBELLEARTICLE']} ${item['DATEFACT']}'),
                   subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -171,7 +171,7 @@ final String TypeMat;
   // You can add more properties as needed
   factory FactureData.fromJson(Map<String, dynamic> json) {
     return FactureData(
-      Datefact: json['Datefact'],
+      Datefact: json['DATEFACT'],
       IMAT: json['IMAT'],
       LIBELLEARTICLE: json['LIBELLEARTICLE'],
       NOM_CLIENT: json['NOM_CLIENT'],
