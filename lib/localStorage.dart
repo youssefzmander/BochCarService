@@ -71,14 +71,29 @@ Future<List<Map<String, dynamic>>> loadFromLocalStorage() async {
   }
 
   List<Widget> buildCards(List<Map<String, dynamic>> data) {
-    List<Widget> cards = [];
-    for (var item in data) {
-      cards.add(
-        Card(
-          child: ListTile(
-            leading: Icon(Icons.article_rounded, size: 50),
-                  title: Text('${item['LIBELLEARTICLE']} ${item['DATEFACT']}'),
-                  subtitle: Column(
+  List<Widget> cards = [];
+  for (var item in data) {
+    cards.add(
+      Card(
+        child: ListTile(
+          leading: Icon(Icons.article_rounded, size: 50),
+          title: Row( // Wrap title in Row
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded( // Use Expanded for '${item['LIBELLEARTICLE']}' to allow wrapping
+                child: Text(
+                  '${item['LIBELLEARTICLE']}',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(width: 8), // Add space between '${item['LIBELLEARTICLE']}' and '${item['DATEFACT']}'
+              Text( // '${item['DATEFACT']}' positioned at the right
+                '${item['DATEFACT']}',
+                style: TextStyle(color: Colors.grey),
+              ),
+            ],
+          ),
+          subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -86,7 +101,7 @@ Future<List<Map<String, dynamic>>> loadFromLocalStorage() async {
                 style: TextStyle(color: Colors.blue, fontSize: 17),
               ),
               SizedBox(height: 8),
-                            Text(
+              Text(
                 '${item['NbrKM'] * 1000} KM',
                 style: TextStyle(color: Colors.black, fontSize: 15),
               ),
@@ -96,20 +111,20 @@ Future<List<Map<String, dynamic>>> loadFromLocalStorage() async {
                 style: TextStyle(color: Colors.blue, fontSize: 17),
               ),
               SizedBox(height: 8), // Add some space between lines
-
               Text(
+                //update
                 '${item['NbrKM'] * 1000 + 100000} KM',
                 style: TextStyle(color: Colors.black, fontSize: 15),
               ),
             ],
           ),
-            // Add more fields as needed
-          ),
         ),
-      );
-    }
-    return cards;
+      ),
+    );
   }
+  return cards;
+}
+
 
 Future<Map<String, dynamic>?> getStoredData(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
