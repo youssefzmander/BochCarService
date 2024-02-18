@@ -114,7 +114,7 @@ Future<List<Map<String, dynamic>>> loadFromLocalStorage() async {
               Text(
                 //updatesss
                 '${item['NbrKM'] * 1000 + 100000} KM',
-                //doc
+                
                 style: TextStyle(color: Colors.black, fontSize: 15),
               ),
             ],
