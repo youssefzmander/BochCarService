@@ -1,111 +1,113 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/auth.dart';
 import 'package:flutter_application_1/localStorage.dart';
- import 'package:flutter_application_1/mainHome.dart';
+import 'package:flutter_application_1/mainHome.dart';
 import 'package:flutter_application_1/signup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-
-
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignIn extends StatefulWidget {
   @override
   _SignInState createState() => _SignInState();
 }
 
+class _SignInState extends State<SignIn> {
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
 
-class _SignInState extends State<SignIn>{
+  String? errorMessage = "";
 
+  Future<void> addToLocalStorage(String key, String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(key, value);
+    print('Data added to local storage');
+  }
 
- final TextEditingController _controllerEmail =TextEditingController();
+  LStorage lStorage = LStorage();
 
-  final TextEditingController _controllerPassword=TextEditingController();
-  
-String? errorMessage="";
-Future<void> addToLocalStorage(String key, String value) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString(key, value);
-  print('Data added to local storage');
-}
-LStorage lStorage = LStorage();
-@override
+  @override
   void initState() {
     super.initState();
     Auth().signOut();
-
   }
-Future<Map<String, dynamic>> getUserData() async {
-  User? user = FirebaseAuth.instance.currentUser;
-  print('Userrrrrrrrrr: $user');
-  print('UserrrrrrrrrrUID: ${user?.uid}');
-  if (user?.uid != null) {
-    
-    // Reference to the user's document in the 'users' collection
-    DocumentSnapshot<Map<String, dynamic>> snapshot =
-        await FirebaseFirestore.instance.collection('users').doc(user?.uid).get();
 
-    // Check if the document exists
-    if (snapshot.exists) {
-      // Access user data
-      Map<String, dynamic> userData = snapshot.data()!;
-      print("userDataaaaa");
-      print(userData);
-      return userData;
+  Future<Map<String, dynamic>> getUserData() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    print('Userrrrrrrrrr: $user');
+    print('UserrrrrrrrrrUID: ${user?.uid}');
+    if (user?.uid != null) {
+      DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await FirebaseFirestore.instance.collection('users').doc(user?.uid).get();
+
+      if (snapshot.exists) {
+        Map<String, dynamic> userData = snapshot.data()!;
+        print("userDataaaaa");
+        print(userData);
+        return userData;
+      } else {
+        print('User document does not exist');
+        return {};
+      }
     } else {
-      print('User document does not exist');
-      return {}; // or throw an exception, depending on your error handling strategy
+      print('User is not signed in');
+      return {};
     }
-  } else {
-    print('User is not signed in');
-    return {}; // or throw an exception, depending on your error handling strategy
   }
-  
-}
-  Future<void> signInWithEmailAndPassword() async {
-try{
-await Auth().signInWithEmailAndPassword(
 
-email:_controllerEmail.text,
+  Future<void> signInWithEmailAndPassword(BuildContext context) async {
+    try {
+      await Auth().signInWithEmailAndPassword(
+        email: _controllerEmail.text,
+        password: _controllerPassword.text,
+      );
+      getUserData().then((userData) async {
+        print('User Data: $userData');
+        String jsonMap = jsonEncode(userData);
+        lStorage.addToLocalStorage('userData', jsonMap).then((value) => {
+              print('S7iii7'),
+            });
+      }).then((value) => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => BottomNavigation()),
+          ));
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        
+          errorMessage = e.code;
+          // Show SnackBar with error message
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+    content: Padding(
+      padding: EdgeInsets.only(bottom: 10), // Add bottom margin here
+      child: Text(
+        errorMessage!,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,), // Change font size here
+      ),
+    ),
+    backgroundColor: const Color.fromARGB(255, 207, 62, 52), // Change background color here
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30), // Change shape here
+    ),
+  ),
+    );
+          
+        
+      });
+    }
+  }
 
-password: _controllerPassword.text,
-
-
-) ;
-getUserData().then((userData) async{
-    print('User Data: $userData');
-    String jsonMap = jsonEncode(userData);
-    lStorage.addToLocalStorage('userData', jsonMap).then((value) => {
-      print('S7iii7'),
-       
-});
-  }).then((value) => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => BottomNavigation()),
-            ));
-
-} on FirebaseAuthException catch (e) {
-  setState(() {
-    if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-   content: Text('INVALID_LOGIN_CREDENTIALS'),
-                  ));
-    print('No user found for that email.');
-  } 
-    errorMessage = e.code;
-    print(errorMessage);
-});
-  }}
-   final snackBar = SnackBar(
-            content: const Text('Yay! A SnackBar!'),
-            
-          );
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Login',
-      home: Scaffold(
+    return Scaffold(
+      
+      
         
         body: SafeArea(
           child: Column(
@@ -113,7 +115,6 @@ getUserData().then((userData) async{
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  
                   Text(
                     'Login',
                     style: TextStyle(
@@ -130,7 +131,6 @@ getUserData().then((userData) async{
                 decoration: InputDecoration(
                   labelText: 'Your Email',
                   icon: Icon(Icons.email),
-                  
                 ),
               ),
               SizedBox(height: 20),
@@ -140,7 +140,6 @@ getUserData().then((userData) async{
                 decoration: InputDecoration(
                   labelText: 'Password',
                   icon: Icon(Icons.lock),
-                  
                 ),
               ),
               SizedBox(height: 20),
@@ -148,8 +147,8 @@ getUserData().then((userData) async{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                    onPressed: ()  {
-                      Auth().resetPassword(_controllerEmail as String);
+                    onPressed: () {
+                      Auth().resetPassword(_controllerEmail.text);
                     },
                     child: Text(
                       'Forget your Password',
@@ -158,18 +157,18 @@ getUserData().then((userData) async{
                       ),
                     ),
                   ),
+                  
                   ElevatedButton(
                     onPressed: () {
-         
-    // Perform your sign-in logic here
-    signInWithEmailAndPassword();
-        },
+                      // Pass context to signInWithEmailAndPassword function
+                      signInWithEmailAndPassword(context);
+                      
+                    },
                     child: Text('Log In'),
                   ),
+                  
                 ],
               ),
-              
-              
               SizedBox(height: 20),
               Text(
                 "You don't have an account?",
@@ -180,12 +179,11 @@ getUserData().then((userData) async{
               SizedBox(height: 10),
               TextButton(
                 onPressed: () {
-                  
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SignUp()),
-            );
-          },
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUp()),
+                  );
+                },
                 child: Text(
                   'Sign up',
                   style: TextStyle(
@@ -197,9 +195,7 @@ getUserData().then((userData) async{
             ],
           ),
         ),
-      ),
+      
     );
   }
-
-
 }
