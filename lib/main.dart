@@ -3,13 +3,11 @@ import 'dart:async';
 import 'package:english_words/english_words.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/animated_splash_screen.dart';
 import 'package:flutter_application_1/firebase_options.dart';
 import 'package:flutter_application_1/notification.dart';
 import 'package:flutter_application_1/signin.dart';
 import 'package:flutter_application_1/signup.dart';
 import 'package:provider/provider.dart';
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 Future<void> main() async {
   runApp(MyApp());
   await Firebase.initializeApp(

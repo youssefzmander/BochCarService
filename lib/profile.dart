@@ -79,7 +79,22 @@ print('User idddd: $userId');
         await _auth.currentUser!.updatePassword(_eemail!).onError((error, stackTrace) => print(error)),
         updateMapInLocalStorage(newData)
         });
-
+ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+    content: Padding(
+      padding: EdgeInsets.only(bottom: 10), // Add bottom margin here
+      child: Text(
+        "User data updated successfully.",
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,), // Change font size here
+      ),
+    ),
+    backgroundColor: Color.fromARGB(255, 0, 184, 3), // Change background color here
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30), // Change shape here
+    ),
+  ),
+    );
       print('User data updated successfully.');
     } catch (e) {
       print('Error updating user data: $e');
@@ -105,8 +120,8 @@ print('User idddd: $userId');
   }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
+      
         body: ListView(
           children: <Widget>[
             ListTile(
@@ -160,7 +175,7 @@ print('User idddd: $userId');
    Row(
    // mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adjust alignment as needed
     children: [
-      Container(
+      SizedBox(
         width: 70, // Set width
   height: 60,
         child: TextField(
@@ -178,7 +193,7 @@ print('User idddd: $userId');
           ),
         ),
       ),
-      Container(
+      SizedBox(
         width: 100, // Set width
   height: 50,
         
@@ -299,9 +314,24 @@ print('User idddd: $userId');
                   await _auth.currentUser!.updatePassword(newPassword);
 
                   // Password updated successfully
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('Password changed successfully'),
-                  ));
+                  ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+    content: Padding(
+      padding: EdgeInsets.only(bottom: 10), // Add bottom margin here
+      child: Text(
+        "Password changed successfully.",
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,), // Change font size here
+      ),
+    ),
+    backgroundColor: Color.fromARGB(255, 0, 184, 3), // Change background color here
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30), // Change shape here
+    ),
+  ),
+    );
+      
+                  
                 } catch (error) {
                   setState(() {
                     _errorMessage = error.toString();
@@ -317,7 +347,7 @@ print('User idddd: $userId');
             
           ],
         ),
-      ),
+      
     );
   }
 }

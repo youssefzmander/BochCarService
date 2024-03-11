@@ -6,7 +6,7 @@ class PushNotificationService {
   Future<void> initialize() async {
     _firebaseMessaging.requestPermission();
     final fcmToken = await FirebaseMessaging.instance.getToken();
-          print("FCM Token: ${fcmToken}");
+          print("FCM Token: $fcmToken");
 
     
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {

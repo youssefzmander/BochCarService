@@ -95,7 +95,7 @@ print('UIMATTTT: ${storedData?.Plate}');
     
   } else {
     print('User is not signed indaaaaata');
-    ; // or throw an exception, depending on your error handling strategy
+// or throw an exception, depending on your error handling strategy
   }
   }catch (e) {
       print('Error retrieving data: $e');

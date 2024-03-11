@@ -32,9 +32,10 @@ class _SignUpState extends State<SignUp>{
   return prefs.getString(key);
 }
 Future<void> addUserDataToFirestore() async {
+  try{
   // Get the current authenticated user
   User? user = FirebaseAuth.instance.currentUser;
-
+print("user : $user");
   if (user != null) {
     // Reference to the user's document in the 'users' collection
     DocumentReference userDocRef =
@@ -52,15 +53,23 @@ Future<void> addUserDataToFirestore() async {
     'MatType': _selectedChoice,
       // Add other user-related fields as needed
     };
-
+print('User data : ${userData}');
     // Set the data in Firestore
     await userDocRef.set(userData).then((value) => {
-      userData = {}
-    });
+      userData = {},
+      print('User data added to Firestore for UID: ${user.uid}')
+    }).then((value) => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SignIn()),
+          ));
 
     print('User data added to Firestore for UID: ${user.uid}');
   } else {
     print('User is not signed in');
+  }
+  }
+  catch(e){
+    print("probleme: ${e.toString()}");
   }
 }
  
@@ -74,10 +83,26 @@ email:_controllerEmail.text,
 password: _controllerPassword.text,
 
 
-) ;
+);
 } on FirebaseAuthException catch (e) {
   setState(() {errorMessage = e.message;
-  print(errorMessage);
+  ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+    content: Padding(
+      padding: EdgeInsets.only(bottom: 10), // Add bottom margin here
+      child: Text(
+        errorMessage!,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,), // Change font size here
+      ),
+    ),
+    backgroundColor: const Color.fromARGB(255, 207, 62, 52), // Change background color here
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30), // Change shape here
+    ),
+  ),
+    );
+  print("errrrrror : $errorMessage");
 });
   }}
   @override
@@ -88,9 +113,8 @@ password: _controllerPassword.text,
   }
   @override
  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Register Account',
-      home: Scaffold(
+    return Scaffold(
+      
         body: SafeArea(
           child: Column(
             children: [
@@ -272,9 +296,26 @@ password: _controllerPassword.text,
                   print(Plate);
                   
                   if (PassCorrect==true){
+                    print("D5all");
                     createUserwithEmailAndPassword().then((value) => {addUserDataToFirestore(),
                     print("TLA3333")});
                     Auth().signOut();
+                    ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+    content: Padding(
+      padding: EdgeInsets.only(bottom: 10), // Add bottom margin here
+      child: Text(
+        "compte créée",
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,), // Change font size here
+      ),
+    ),
+    backgroundColor: Color.fromARGB(255, 0, 184, 3), // Change background color here
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30), // Change shape here
+    ),
+  ),
+    );
                     /*FirebaseAuth.instance.authStateChanges().listen((User? user) {
   if (user != null) {
     // User is signed in
@@ -288,21 +329,32 @@ password: _controllerPassword.text,
                     
                     PassCorrect=false;
                   }else{
+                    ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+    content: Padding(
+      padding: EdgeInsets.only(bottom: 10), // Add bottom margin here
+      child: Text(
+        "wrong password",
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,), // Change font size here
+      ),
+    ),
+    backgroundColor: const Color.fromARGB(255, 207, 62, 52), // Change background color here
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30), // Change shape here
+    ),
+  ),
+    );
                     print("rodha toast:wrong password");
                   }
                   
-
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SignIn()),
-            );
           },
                 child: Text('CONTINUE'),
               ),
             ],
           ),
         ),
-      ),
+      
     );
   }
 }

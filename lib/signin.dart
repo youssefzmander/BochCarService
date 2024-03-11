@@ -9,7 +9,6 @@ import 'package:flutter_application_1/mainHome.dart';
 import 'package:flutter_application_1/signup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -64,7 +63,7 @@ class _SignInState extends State<SignIn> {
       await Auth().signInWithEmailAndPassword(
         email: _controllerEmail.text,
         password: _controllerPassword.text,
-      );
+      ).then((value) => 
       getUserData().then((userData) async {
         print('User Data: $userData');
         String jsonMap = jsonEncode(userData);
@@ -74,7 +73,8 @@ class _SignInState extends State<SignIn> {
       }).then((value) => Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => BottomNavigation()),
-          ));
+          ))
+);
     } on FirebaseAuthException catch (e) {
       setState(() {
         
