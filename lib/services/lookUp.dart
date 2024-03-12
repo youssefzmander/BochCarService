@@ -14,8 +14,8 @@ String findContainedWord(List<String> list, String inputString) {
   List<String> words = inputString.split(' ');
   for (String word in words) {
     if (list.contains(word)) {
-      var _world=word+".png";
-          return word;
+      var _world=word;
+          return word+".png";
     }
   }
   return "service.png";
