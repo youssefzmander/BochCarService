@@ -160,11 +160,37 @@ print('UIMATTTT: ${storedData?.Plate}');
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
-              Auth().signOut();
+              
+            
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Deconection'),
+                    content: Text('Confirmer la deconection'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Auth().signOut();
               Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => SignIn()),
             );
+                        },
+                        child: Text('OK'),
+                      ),
+                    ],
+                  );
+                },
+              );
+
+
             },
           ),
           ],) ,

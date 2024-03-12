@@ -199,6 +199,3 @@ final String TypeMat;
     );
   }
 }
-
-
- 
