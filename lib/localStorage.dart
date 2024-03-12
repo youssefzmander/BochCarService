@@ -63,6 +63,7 @@ Future<List<Map<String, dynamic>>> loadFromLocalStorage() async {
         return factureDataList;
       } else {
         print('No data found in local storage.');
+        
         return [];
       }
     } catch (e) {
@@ -77,7 +78,7 @@ Future<List<Map<String, dynamic>>> loadFromLocalStorage() async {
     cards.add(
       Card(
         child: ListTile(
-          leading: Icon(Icons.article_rounded, size: 50),
+          leading: Image.asset('assets/${lookup.IconeService(item['LIBELLEARTICLE'])}', width: 50, height: 50),
           title: Row( // Wrap title in Row
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
