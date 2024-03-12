@@ -3,11 +3,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/services/lookUp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LStorage{
 //static const String storageKey = 'userData';
-
+LookUp lookup= LookUp();
 Future<void> addToLocalStorage(String key, String value) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString(key, value);
