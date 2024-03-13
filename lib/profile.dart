@@ -125,11 +125,11 @@ ScaffoldMessenger.of(context).showSnackBar(
         body: ListView(
           children: <Widget>[
             ListTile(
-              title: Text('settings and privacy', style: TextStyle(fontSize: 20)),
+              title: Text('settings and privacy', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
               leading: Icon(Icons.settings),
             ),
             ListTile(
-              title: Text('personal account information', style: TextStyle(fontSize: 20)),
+              title: Text('personal account information', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -167,6 +167,7 @@ ScaffoldMessenger.of(context).showSnackBar(
                     'Plate Number',
                     style: TextStyle(
                       fontSize: 20,
+                      fontWeight: FontWeight.bold
                     ),
                   ),
                   
@@ -262,7 +263,7 @@ ScaffoldMessenger.of(context).showSnackBar(
               ),
             ),
             ListTile(
-              title: Text('password and security', style: TextStyle(fontSize: 20)),
+              title: Text('password and security', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

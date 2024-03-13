@@ -100,7 +100,7 @@ Future<List<Map<String, dynamic>>> loadFromLocalStorage() async {
             children: [
               Text(
                 'Kilometrage actuel: ',
-                style: TextStyle(color: Colors.blue, fontSize: 17),
+                style: TextStyle(color: Colors.blue, fontSize: 17,fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
               Text(
@@ -110,7 +110,7 @@ Future<List<Map<String, dynamic>>> loadFromLocalStorage() async {
               SizedBox(height: 8), // Add some space between lines
               Text(
                 'Prochain entretien: ',
-                style: TextStyle(color: Colors.blue, fontSize: 17),
+                style: TextStyle(color: Colors.blue, fontSize: 17,fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8), // Add some space between lines
               Text(

@@ -145,11 +145,50 @@ print('UIMATTTT: ${storedData?.Plate}');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar( title:Text(_pagesTitle[_currentIndex]),centerTitle: true, backgroundColor: Colors.blue,
+      appBar: AppBar( title:Text(_pagesTitle[_currentIndex]),
+      centerTitle: true, 
+      backgroundColor: Colors.blue,
+      leading: IconButton(
+    icon: Icon(Icons.report,color: Color.fromARGB(255, 190, 20, 8),size: 30,), // You can use any icon you want
+    onPressed: () {
+      showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  String textValue = ''; // Variable to hold text field value
+                  return AlertDialog(
+                    title: Text('Signaler un problem',
+                    style: TextStyle( fontSize: 23,fontWeight: FontWeight.bold),),
+                    content: TextField(
+                      onChanged: (value) {
+                        textValue = value; // Update textValue when text field changes
+                      },
+                      decoration: InputDecoration(hintText: 'Enter text'),
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close dialog
+                        },
+                        child: Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          // Do something with textValue, e.g., print it
+                          print('Text entered: $textValue');
+                          Navigator.of(context).pop(); // Close dialog
+                        },
+                        child: Text('OK'),
+                      ),
+                    ],
+                  );
+                },
+              );
+    },
+  ),
         actions: <Widget>[
           
           IconButton(
-            icon: Icon(Icons.info),
+            icon: Icon(Icons.help),
             onPressed: () {
             Navigator.push(
               context,
@@ -166,8 +205,9 @@ print('UIMATTTT: ${storedData?.Plate}');
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text('Deconection'),
-                    content: Text('Confirmer la deconection'),
+                    backgroundColor: Color.fromARGB(255, 228, 229, 217),
+                    title: Text('Deconecter',style: TextStyle(color: Colors.red, fontSize: 20,fontWeight: FontWeight.bold)),
+                    content: Text('Confirmer la deconection',style: TextStyle(color: Colors.black, fontSize: 16)),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () {
