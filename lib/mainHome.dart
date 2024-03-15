@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/contact.dart';
 import 'package:flutter_application_1/history.dart';
@@ -11,6 +12,8 @@ import 'package:flutter_application_1/profile.dart';
 import 'package:flutter_application_1/signin.dart';
 
 import 'package:flutter_application_1/auth.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -142,6 +145,47 @@ print('UIMATTTT: ${storedData?.Plate}');
     });
   }
 
+void sendMail({
+    required String recipientEmail,
+    required String mailMessage,
+  }) async {
+    // change your email here
+    String username = 'youssef.zmander@gmail.com';
+    // change your password here
+    String password = 'bilnwrnkybqfptmf';
+    final smtpServer = gmail(username, password);
+    final message = Message()
+      ..from = Address(username, 'probleme Bosh Car')
+      ..recipients.add(recipientEmail)
+      ..subject = 'Issue With Boch Car service Sliti auto '
+      ..text = 'Message from ${storedData?.Email} Immat num ${storedData?.Plate}: $mailMessage';
+
+    try {
+      await send(message, smtpServer).then((value) => 
+      ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+    content: Padding(
+      padding: EdgeInsets.only(bottom: 10), // Add bottom margin here
+      child: Text(
+        "Message envoyé ",
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,), // Change font size here
+      ),
+    ),
+    backgroundColor: Color.fromARGB(255, 0, 184, 3), // Change background color here
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30), // Change shape here
+    ),
+  ),
+    ),
+    );
+      
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -175,6 +219,7 @@ print('UIMATTTT: ${storedData?.Plate}');
                         onPressed: () {
                           // Do something with textValue, e.g., print it
                           print('Text entered: $textValue');
+                          sendMail(recipientEmail: 'hafedh.zd@gmail.com', mailMessage: textValue);
                           Navigator.of(context).pop(); // Close dialog
                         },
                         child: Text('OK'),
