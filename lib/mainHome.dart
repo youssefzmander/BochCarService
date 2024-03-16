@@ -219,7 +219,6 @@ void sendMail({
                         onPressed: () {
                           // Do something with textValue, e.g., print it
                           print('Text entered: $textValue');
-                          sendMail(recipientEmail: 'hafedh.zd@gmail.com', mailMessage: textValue);
                           Navigator.of(context).pop(); // Close dialog
                         },
                         child: Text('OK'),
@@ -233,7 +232,7 @@ void sendMail({
         actions: <Widget>[
           
           IconButton(
-            icon: Icon(Icons.help),
+            icon: Icon(Icons.info),
             onPressed: () {
             Navigator.push(
               context,
@@ -250,9 +249,8 @@ void sendMail({
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    backgroundColor: Color.fromARGB(255, 228, 229, 217),
-                    title: Text('Deconecter',style: TextStyle(color: Colors.red, fontSize: 20,fontWeight: FontWeight.bold)),
-                    content: Text('Confirmer la deconection',style: TextStyle(color: Colors.black, fontSize: 16)),
+                    title: Text('Deconection'),
+                    content: Text('Confirmer la deconection'),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () {
