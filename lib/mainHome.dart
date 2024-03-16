@@ -219,6 +219,7 @@ void sendMail({
                         onPressed: () {
                           // Do something with textValue, e.g., print it
                           print('Text entered: $textValue');
+                          sendMail(recipientEmail: 'hafedh.zd@gmail.com', mailMessage: textValue);
                           Navigator.of(context).pop(); // Close dialog
                         },
                         child: Text('OK'),
