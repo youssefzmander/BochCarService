@@ -1,5 +1,5 @@
 
-name: sliti_auto
+name: flutter_application_1
 description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -8,7 +8,6 @@ version: 0.0.1+1
 
 environment:
   sdk: '>=2.19.4 <4.0.0'
-package: com.zmandarus.slitiauto
 dependencies:
   flutter:
     sdk: flutter
