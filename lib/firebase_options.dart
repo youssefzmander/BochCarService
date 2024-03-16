@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,9 +43,18 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCRZWL8FAevd-Oxw8y4_y27u7zFxkY2IbA',
+    appId: '1:756037822938:web:c25de6880b008c30a978e3',
+    messagingSenderId: '756037822938',
+    projectId: 'bocarservice-8ea17',
+    authDomain: 'bocarservice-8ea17.firebaseapp.com',
+    storageBucket: 'bocarservice-8ea17.appspot.com',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCioinThsNx0mP3ODT2M5olefgu2iXmglk',
-    appId: '1:756037822938:android:3db47a7184810104a978e3',
+    appId: '1:756037822938:android:700d4b0d16020abca978e3',
     messagingSenderId: '756037822938',
     projectId: 'bocarservice-8ea17',
     storageBucket: 'bocarservice-8ea17.appspot.com',
@@ -64,5 +67,14 @@ class DefaultFirebaseOptions {
     projectId: 'bocarservice-8ea17',
     storageBucket: 'bocarservice-8ea17.appspot.com',
     iosBundleId: 'com.example.flutterApplication1',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDnKac-yTcyvwNRD189FBETyqk8afgdZmc',
+    appId: '1:756037822938:ios:2d43e4533ddff436a978e3',
+    messagingSenderId: '756037822938',
+    projectId: 'bocarservice-8ea17',
+    storageBucket: 'bocarservice-8ea17.appspot.com',
+    iosBundleId: 'com.example.flutterApplication1.RunnerTests',
   );
 }
