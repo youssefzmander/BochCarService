@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override 
   Widget build(BuildContext context) { 
     return Container( 
-      color: Colors.white, 
+      color: const Color.fromARGB(255, 94, 81, 81), 
       //child:FlutterLogo( size:MediaQuery.of(context).size.height) 
     child: Image.asset(
             'assets/BOSCH.png', // Path to your image asset
