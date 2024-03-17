@@ -110,6 +110,8 @@ class _SignInState extends State<SignIn> {
       
         
         body: SafeArea(
+          child: Padding(
+        padding: EdgeInsets.only(left: 20.0,right: 20.0), // Adjust the left padding as needed
           child: Column(
             children: [
               Row(
@@ -195,7 +197,7 @@ class _SignInState extends State<SignIn> {
             ],
           ),
         ),
-      
+        ),
     );
   }
 }

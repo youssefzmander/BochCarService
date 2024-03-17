@@ -189,7 +189,7 @@ void sendMail({
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar( title:Text(_pagesTitle[_currentIndex]),
+      appBar: AppBar( title:Text(_pagesTitle[_currentIndex],style: TextStyle( fontWeight: FontWeight.bold),),
       centerTitle: true, 
       backgroundColor: Colors.blue,
       leading: IconButton(
