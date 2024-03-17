@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:english_words/english_words.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -64,16 +65,41 @@ class _MyHomePageState extends State<MyHomePage> {
          ); 
   } 
   @override 
-  Widget build(BuildContext context) { 
-    return Container( 
-      color: Color.fromARGB(255, 238, 238, 238), 
-      //child:FlutterLogo( size:MediaQuery.of(context).size.height) 
-    child: Image.asset(
-            'assets/BOSCH.png', // Path to your image asset
-            width: double.infinity, // Set width to fill the entire width
-            height: 200, // Adjust height as needed
-            //fit: BoxFit.cover, // Adjust how the image is displayed
-          ),
-    ); 
-  } 
+ Widget build(BuildContext context) {
+  return Container(
+    color: Color.fromARGB(255, 238, 238, 238),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/BOSCH.png',
+          width: double.infinity,
+          height: 200,
+          //fit: BoxFit.cover,
+        ),
+        SizedBox(height: 20), // Add space between image and text
+        AnimatedTextKit(
+  animatedTexts: [
+    TypewriterAnimatedText(
+      'Sliti Auto Bosch Car Service',
+      textStyle: const TextStyle(
+        color: Color.fromARGB(255, 38, 149, 241),
+        fontSize: 28.0,
+        fontWeight: FontWeight.bold,
+      ),
+      speed: const Duration(milliseconds: 80),
+    ),
+  ],
+  displayFullTextOnTap: true,
+  isRepeatingAnimation: false,
+  
+  //totalRepeatCount: 4,
+  //pause: const Duration(milliseconds: 1000),
+  //displayFullTextOnTap: true,
+  //stopPauseOnTap: true,
+)
+      ],
+    ),
+  );
+}
 } 
