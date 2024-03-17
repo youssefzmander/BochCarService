@@ -116,6 +116,7 @@ password: _controllerPassword.text,
     return Scaffold(
       
         body: SafeArea(
+          child: SingleChildScrollView(
           child: Column(
             children: [
               Row(
@@ -354,7 +355,7 @@ password: _controllerPassword.text,
             ],
           ),
         ),
-      
+        ),
     );
   }
 }
