@@ -84,8 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
       'Sliti Auto Bosch Car Service',
       textStyle: const TextStyle(
         color: Color.fromARGB(255, 38, 149, 241),
-        fontSize: 28.0,
-        fontWeight: FontWeight.w700,
+        fontSize: 20.0,
+        fontWeight: FontWeight.bold,
       ),
       speed: const Duration(milliseconds: 80),
     ),
