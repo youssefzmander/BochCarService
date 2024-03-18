@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
       textStyle: const TextStyle(
         color: Color.fromARGB(255, 38, 149, 241),
         fontSize: 28.0,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w700,
       ),
       speed: const Duration(milliseconds: 80),
     ),
