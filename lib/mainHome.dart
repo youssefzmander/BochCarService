@@ -206,7 +206,7 @@ void sendMail({
                       onChanged: (value) {
                         textValue = value; // Update textValue when text field changes
                       },
-                      decoration: InputDecoration(hintText: 'Enter text'),
+                      decoration: InputDecoration(hintText: 'Entrer text'),
                     ),
                     actions: <Widget>[
                       TextButton(
