@@ -161,6 +161,7 @@ void sendMail({
       ..text = 'Message from ${storedData?.Email} Immat num ${storedData?.Plate}: $mailMessage';
 
     try {
+      if (mailMessage!=""){
       await send(message, smtpServer).then((value) => 
       ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -178,7 +179,25 @@ void sendMail({
     ),
   ),
     ),
-    );
+    );}else{
+      ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+    content: Padding(
+      padding: EdgeInsets.only(bottom: 10), // Add bottom margin here
+      child: Text(
+        "Message vide non envoyée ",
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,), // Change font size here
+      ),
+    ),
+    backgroundColor: Color.fromARGB(255, 242, 22, 22), // Change background color here
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30), // Change shape here
+    ),
+  )
+      );
+      
+    }
       
     } catch (e) {
       if (kDebugMode) {
