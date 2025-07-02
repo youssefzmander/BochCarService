@@ -1,0 +1,2 @@
+/Users/zmanderyoussef/Documents/BochCarService/android/app/.cxx/Debug/r116s5p1/x86_64/CMakeFiles/edit_cache.dir
+/Users/zmanderyoussef/Documents/BochCarService/android/app/.cxx/Debug/r116s5p1/x86_64/CMakeFiles/rebuild_cache.dir

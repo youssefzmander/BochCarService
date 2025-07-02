@@ -130,9 +130,12 @@ class _SignInState extends State<SignIn> {
               SizedBox(height: 100),
               TextField(
                 controller: _controllerEmail,
+                keyboardType: TextInputType.emailAddress,
+                autocorrect: false,
+                textCapitalization: TextCapitalization.none,
                 decoration: InputDecoration(
                   labelText: 'Your Email',
-                  icon: Icon(Icons.email),
+                  icon: Icon(Icons.email, color: Colors.green),
                 ),
               ),
               SizedBox(height: 20),

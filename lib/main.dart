@@ -9,16 +9,15 @@ import 'package:flutter_application_1/notification.dart';
 import 'package:flutter_application_1/signin.dart';
 import 'package:flutter_application_1/signup.dart';
 import 'package:provider/provider.dart';
+
 Future<void> main() async {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
-await PushNotificationService().initialize();
-  
+  );
+  await PushNotificationService().initialize();
+  runApp(MyApp());
 }
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -48,8 +47,7 @@ class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
 }
 
-
- class MyHomePage extends StatefulWidget { 
+class MyHomePage extends StatefulWidget { 
   @override 
   _MyHomePageState createState() => _MyHomePageState(); 
 } 
